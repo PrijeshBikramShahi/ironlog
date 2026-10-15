@@ -1,0 +1,30 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Service-worker assets must be served as-is; without these passthroughs the
+# SPA catch-all below would rewrite them to index.html (HTML MIME) and the
+# browser would refuse to install the service worker.
+[[redirects]]
+  from = "/sw.js"
+  to = "/sw.js"
+  status = 200
+
+[[redirects]]
+  from = "/registerSW.js"
+  to = "/registerSW.js"
+  status = 200
+
+[[redirects]]
+  from = "/workbox-*"
+  to = "/workbox-:splat"
+  status = 200
+
+# SPA fallback: every unmatched path serves the app shell.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
