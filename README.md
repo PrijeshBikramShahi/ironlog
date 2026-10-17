@@ -29,6 +29,13 @@ works fully offline, and can be exported to JSON anytime.
   plus **favorite meals** (tap ♥ on any meal, then add it again in one tap from
   the Log view).
 
+## Privacy and data ownership
+
+Iron Log has no account system or application backend. Journal entries stay in
+the browser profile where they were created, and the app does not send them to
+an analytics or storage service. Export a JSON backup from the app before
+clearing browser data or moving to another device.
+
 ## Stack
 
 - [Vite](https://vite.dev) + React 18 — build tooling
@@ -88,12 +95,16 @@ or drag-and-drop the `dist/` folder into the Netlify drop section.
    "Add to Home Screen" (theme-color, standalone display, and `apple-touch-icon`
    are wired up).
 
-> Note: any data in a previous Claude.ai artifact environment is sandboxed to
-> that origin and cannot be migrated — the deployed app starts fresh.
-
 ## Storage
 
 `src/storage.js` is the single storage adapter: `loadKey(key, fallback)` and
 `saveKey(key, value)` over `localStorage` (JSON per key). All Iron Log data is
 whole-blob key/value JSON, comfortably within the ~5MB quota. Swapping to
 IndexedDB later would only require changing this one file.
+
+## Product boundaries
+
+Iron Log is designed for one person on one browser profile. It does not sync
+between devices, provide medical guidance, or replace a durable backup. Browser
+storage limits and data-clearing controls vary by browser, so regular JSON
+exports are recommended.
